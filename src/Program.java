@@ -1,24 +1,28 @@
+import java.util.Random;
+
 public class Program {
 
     public static void main (String[] args) {
-        Group group = new Group(23);
+        Group group = new Group(727);
 
         Person person1 = new Person(group, "dieter");
         Person person2 = new Person(group, "detlef");
         Person person3 = new Person(group, "jörg");
 
-        int randomNumber = (int) (Math.random() * 1000);
-        System.out.println("number: " + randomNumber);
+        String string = "test123";
+        if(args.length > 0) {
+            string = args[0];
+        }
 
+        System.out.println("string: " + string);
 
-        int encryptedNumber = person1.encryptInteger(randomNumber, person2.getPublicKey());
-        System.out.println("encrypted: " + encryptedNumber);
+        String encryptString = person1.encryptString(string, person2.getPublicKey());
+        System.out.println("encrypted: " + encryptString);
 
-        int decryptedNumber = person2.decryptInteger(encryptedNumber, person1.getPublicKey());
-        System.out.println("decrypted: " + decryptedNumber);
+        String decryptString = person2.decryptString(encryptString, person1.getPublicKey());
+        System.out.println("decrypted: " + decryptString);
 
-        int decryptIntegerUnauthorized = person3.decryptInteger(encryptedNumber, person1.getPublicKey());
-        System.out.println("decryptedAttack: " + decryptIntegerUnauthorized);
-
+        String decryptStringUnauthorized = person3.decryptString(encryptString, person1.getPublicKey());
+        System.out.println("decryptedUnauthorized: " + decryptStringUnauthorized);
     }
 }
