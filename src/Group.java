@@ -1,5 +1,3 @@
-import kotlin.Pair;
-
 import java.util.Vector;
 
 public class Group {
@@ -14,6 +12,7 @@ public class Group {
     public void findOptimalG() {
         Vector<Integer> subgroup = new Vector<>();
         Pair<Integer, Integer> bestG = new Pair<>(0, 0);
+
 
         for (int i = 0; i < size; i++) {
             subgroup.clear();

@@ -1,5 +1,3 @@
-import java.nio.charset.StandardCharsets;
-
 public class Person {
 
     private int privateKey;
@@ -37,26 +35,32 @@ public class Person {
     public String encryptString(String text, int publicKey) {
         int key = group.pow(publicKey, privateKey);
 
-        char[] chars = text.toCharArray();
-        char[] encryptedChars = new char[chars.length];
+        int[] encryptedChars = new int[text.length()];
 
-        for (int i = 0; i < chars.length; i++) {
-            encryptedChars[i] = (char) ((chars[i] * key));
+        for (int i = 0; i < text.length(); i++) {
+            encryptedChars[i] = (int) text.charAt(i) * key;
         }
-        return new String(encryptedChars);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int val : encryptedChars) {
+            stringBuilder.append(Character.toString(val));
+        }
+        return stringBuilder.toString();
     }
 
     public String decryptString(String text, int publicKey) {
         int key = group.pow(publicKey, privateKey);
 
-        char[] chars = text.toCharArray();
-        char[] decryptedChars = new char[chars.length];
+        int[] decryptedChars = new int[text.length()];
 
-        for (int i = 0; i < chars.length; i++) {
-            int value = (chars[i] / key);
-            decryptedChars[i] = (char) (value);
+        for (int i = 0; i < text.length(); i++) {
+            decryptedChars[i] = (int) text.charAt(i) / key;
         }
-        return new String(decryptedChars);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int val : decryptedChars) {
+            stringBuilder.append(Character.toString(val));
+        }
+        return stringBuilder.toString();
     }
 
     public String toString() {
